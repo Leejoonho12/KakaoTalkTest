@@ -104,13 +104,22 @@ extension ViewController: UITextViewDelegate{
         let newSize = textView.sizeThatFits(CGSize(width: fixedWidth, height: CGFloat.greatestFiniteMagnitude))
         var newFrame = textView.frame
         let clNum = (myTextView.text as NSString).substring(to: myTextView.selectedRange.location).components(separatedBy: .newlines).count
-        let height = newSize.height//- 16.212890625
-        newFrame.size = CGSize(width: max(newSize.width, fixedWidth), height: min(height, maxTextHeight))
-        textView.frame = newFrame
-        myTextView.frame = newFrame
-        myChatView.frame.size = CGSize(width: myChatView.frame.size.width, height: myTextView.frame.size.height) // +16
-        bottomView.frame.size = CGSize(width: bottomView.frame.size.width, height: myChatView.frame.size.height) // + 4
-        myMiddleCon.constant = bottomView.frame.size.height
+        if clNum > 1 {
+            let height = newSize.height + 2//- 16.212890625
+            newFrame.size = CGSize(width: max(newSize.width, fixedWidth), height: min(height, maxTextHeight))
+            textView.frame = newFrame
+            myTextView.frame = newFrame
+            myChatView.frame.size = CGSize(width: myChatView.frame.size.width, height: myTextView.frame.size.height + 6) // +16
+            bottomView.frame.size = CGSize(width: bottomView.frame.size.width, height: myChatView.frame.size.height) // + 4
+            myMiddleCon.constant = bottomView.frame.size.height
+        }
+//        let height = newSize.height + 8//- 16.212890625
+//        newFrame.size = CGSize(width: max(newSize.width, fixedWidth), height: min(height, maxTextHeight))
+//        textView.frame = newFrame
+//        myTextView.frame = newFrame
+//        myChatView.frame.size = CGSize(width: myChatView.frame.size.width, height: myTextView.frame.size.height) // +16
+//        bottomView.frame.size = CGSize(width: bottomView.frame.size.width, height: myChatView.frame.size.height) // + 4
+//        myMiddleCon.constant = bottomView.frame.size.height
         print(myTextView.frame.size.height)
         print(myChatView.frame.size.height)
         print(bottomView.frame.size.height)
