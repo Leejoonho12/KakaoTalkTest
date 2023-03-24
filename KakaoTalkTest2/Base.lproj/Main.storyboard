@@ -116,17 +116,17 @@
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" id="IoT-Y2-Rd6" customClass="CustomTextCell" customModule="KakaoTalkTest2" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="50" width="393" height="20.333333969116211"/>
+                                                <rect key="frame" x="0.0" y="50" width="393" height="26.333333969116211"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="IoT-Y2-Rd6" id="T83-ok-uSd">
-                                                    <rect key="frame" x="0.0" y="0.0" width="393" height="20.333333969116211"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="393" height="26.333333969116211"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
-                                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="bottom" translatesAutoresizingMaskIntoConstraints="NO" id="XPT-m6-0ra">
-                                                            <rect key="frame" x="100" y="0.0" width="293" height="20.333333333333332"/>
+                                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="bottom" translatesAutoresizingMaskIntoConstraints="NO" id="9hS-1T-yqI">
+                                                            <rect key="frame" x="110" y="3" width="268" height="20.333333333333332"/>
                                                             <subviews>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="X4I-HA-FGB" customClass="PaddingLabel" customModule="KakaoTalkTest2" customModuleProvider="target">
-                                                                    <rect key="frame" x="251.66666666666671" y="0.0" width="41.333333333333343" height="20.333333333333332"/>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="characterWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="X4I-HA-FGB" customClass="PaddingLabel" customModule="KakaoTalkTest2" customModuleProvider="target">
+                                                                    <rect key="frame" x="226.66666666666669" y="0.0" width="41.333333333333314" height="20.333333333333332"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
@@ -135,13 +135,14 @@
                                                         </stackView>
                                                     </subviews>
                                                     <constraints>
-                                                        <constraint firstAttribute="bottom" secondItem="XPT-m6-0ra" secondAttribute="bottom" id="0OV-Dl-iw9"/>
-                                                        <constraint firstItem="XPT-m6-0ra" firstAttribute="top" secondItem="T83-ok-uSd" secondAttribute="top" id="Fmq-yi-kSl"/>
-                                                        <constraint firstItem="XPT-m6-0ra" firstAttribute="leading" secondItem="T83-ok-uSd" secondAttribute="leading" constant="100" id="N5U-Mi-OY3"/>
-                                                        <constraint firstAttribute="trailing" secondItem="XPT-m6-0ra" secondAttribute="trailing" id="UYt-tf-SjU"/>
+                                                        <constraint firstAttribute="trailing" secondItem="9hS-1T-yqI" secondAttribute="trailing" constant="15" id="2at-8B-xTG"/>
+                                                        <constraint firstAttribute="bottom" secondItem="9hS-1T-yqI" secondAttribute="bottom" constant="3" id="cld-mA-lI0"/>
+                                                        <constraint firstItem="9hS-1T-yqI" firstAttribute="top" secondItem="T83-ok-uSd" secondAttribute="top" constant="3" id="xEL-Re-1Ey"/>
+                                                        <constraint firstItem="9hS-1T-yqI" firstAttribute="leading" secondItem="T83-ok-uSd" secondAttribute="leading" constant="110" id="z1J-qu-0ck"/>
                                                     </constraints>
                                                 </tableViewCellContentView>
                                                 <connections>
+                                                    <outlet property="myTextArea" destination="9hS-1T-yqI" id="8cL-e3-6en"/>
                                                     <outlet property="myTextLabel" destination="X4I-HA-FGB" id="HdG-bu-Gjx"/>
                                                 </connections>
                                             </tableViewCell>

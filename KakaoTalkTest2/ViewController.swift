@@ -26,7 +26,7 @@ class ViewController: UIViewController {
     
     var maxTextHeight: CGFloat = 0
     
-    var chatContents: [String] = ["hello", "my", "name", "is", "l", "e", "e", "j", "o", "o", "n", "h", "o", "my", "name", "is", "l", "e", "e", "j", "o", "o", "n", "h", "o", "가나다라마바사아자차카타파하 이건 긴 텍스트를 출력하는 테스트 입니다. 텍스트의 길이에 따라 라벨의 크기가 바뀌어야 합니다. 그리고 더 늘어나야 하는데 왜 안늘어나는지 알 수가 없네요 진짜 개빡치네 아아아아아아아아아아아앙 왜이래","dajshfakjfgbiuafbgidlfbkjvbdfjnaoifjbanefkjblsdkjfbnjsfbnifjbnvlskfjnbsiojbaoijfbnvlijdfbnvksjdfbnksjfdnbvlisdjfnbiajnbfoindfblkvjadnfsijsndfklvjdfn!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!?"]
+    var chatContents: [String] = ["hello", "my", "name", "is", "l", "e", "e", "j", "o", "o", "n", "h", "o", "my", "name", "is", "l", "e", "e", "j", "o", "o", "n", "h", "o","가나다라마바사아자차카타파하 이건 긴 텍스트를 출력하는 테스트 입니다. 텍스트의 길이에 따라 라벨의 크기가 바뀌어야 합니다. 그리고 더 늘어나야 하는데 왜 안늘어나는지 알 수가 없네요 진짜 개빡치네 아아아아아아아아아아아앙 왜이래 이거는","dajshfakjfgbiuafbgidlfbkjvbdfjnaoifjbanefkjblsdkjfbnjsfbnifjbnvlskfjnbsiojbaoijfbnvlijdfbnvksjdfbnksjfdnbvlisdjfnbiajnbfoindfblkvjadnfsijsndfklvjdfn!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!?"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -112,9 +112,9 @@ extension ViewController: UITableViewDataSource{
         cell.myTextLabel.text = chatContents[indexPath.row]
         cell.myTextLabel.backgroundColor = .yellow
         cell.myTextLabel.textColor = .black
-        cell.myTextLabel.clipsToBounds = true
-        cell.myTextLabel.layer.cornerRadius = 10
-        cell.myTextLabel.insets = UIEdgeInsets(top: 10, left: 12, bottom: 10, right: 12)
+//        cell.myTextLabel.clipsToBounds = true
+//        cell.myTextLabel.layer.cornerRadius = 10
+        cell.myTextLabel.insets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         
         return cell
     }
@@ -170,10 +170,12 @@ extension ViewController: UITextViewDelegate{
 class CustomTextCell: UITableViewCell{
     @IBOutlet weak var myTextLabel: PaddingLabel!
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 3, left: 15, bottom: 3, right: 15))
-    }
+    @IBOutlet weak var myTextArea: UIStackView!
+    
+//    override func layoutSubviews() {
+//        super.layoutSubviews()
+//        contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 15))
+//    }
 }
 
 class PaddingLabel: UILabel{
