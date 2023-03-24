@@ -114,7 +114,7 @@ extension ViewController: UITableViewDataSource{
         cell.myTextLabel.textColor = .black
 //        cell.myTextLabel.clipsToBounds = true
 //        cell.myTextLabel.layer.cornerRadius = 10
-        cell.myTextLabel.insets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+//        cell.myTextLabel.insets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         
         return cell
     }
