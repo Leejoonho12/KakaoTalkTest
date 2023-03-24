@@ -18,8 +18,15 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var textViewCon: NSLayoutConstraint!
     
+    @IBOutlet weak var myTextViewBottom: NSLayoutConstraint!
+    
+    @IBOutlet weak var myTextViewTop: NSLayoutConstraint!
+    
+    @IBOutlet weak var myTableView: UITableView!
+    
     var maxTextHeight: CGFloat = 0
     
+    var chatContents: [String] = ["hello", "my", "name", "is", "l", "e", "e", "j", "o", "o", "n", "h", "o", "my", "name", "is", "l", "e", "e", "j", "o", "o", "n", "h", "o", "가나다라마바사아자차카타파하 이건 긴 텍스트를 출력하는 테스트 입니다. 텍스트의 길이에 따라 라벨의 크기가 바뀌어야 합니다. 그리고 더 늘어나야 하는데 왜 안늘어나는지 알 수가 없네요 진짜 개빡치네 아아아아아아아아아아아앙 왜이래","dajshfakjfgbiuafbgidlfbkjvbdfjnaoifjbanefkjblsdkjfbnjsfbnifjbnvlskfjnbsiojbaoijfbnvlijdfbnvksjdfbnksjfdnbvlisdjfnbiajnbfoindfblkvjadnfsijsndfklvjdfn!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!?"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,14 +35,29 @@ class ViewController: UIViewController {
         addObservers()
         
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTap)))
+        DispatchQueue.main.asyncAfter(deadline:  .now() + 0.1, execute: { self.scrollDown() })
+    }
+    
+    @IBAction func addChat(_ sender: Any) {
+        guard let content: String = myTextView.text else{ return }
+        chatContents.append(content)
+        myTableView.reloadData()
+        myTextView.text = ""
+        textViewDidChange(myTextView)
+        showAnimation(0)
+        self.view.endEditing(true)
+        myUpdateButton.isHidden = true
+        mySharpButton.isHidden = false
+        DispatchQueue.main.asyncAfter(deadline:  .now() + 0.1, execute: { self.scrollDown() })
+    }
+    
+    private func scrollDown(){
+        let bottomOffset = CGPoint(x: 0, y: myTableView.contentSize.height - myTableView.bounds.height)
+        myTableView.setContentOffset(bottomOffset, animated: false)
     }
     
     private func UISetting(){
         myTextView.delegate = self
-        maxTextHeight = 5 * myTextView.font!.lineHeight + 16 //- 0.212890625
-        print(myTextView.font!.lineHeight)
-        myMiddleCon.constant = myTextView.font!.lineHeight + 18 // 텍스트뷰의 마진, 패딩 = 16
-        myChatView.frame.size.height = myTextView.font!.lineHeight + 16 // 텍스트뷰의 패딩 = 8
         myChatView.clipsToBounds = true
         myChatView.layer.cornerRadius = myChatView.frame.size.height / 2
         myUpdateButton.isHidden = true
@@ -49,7 +71,8 @@ class ViewController: UIViewController {
     
     private func showAnimation(_ height: CGFloat){
         UIView.animate(withDuration: 0.2, animations: {
-            self.view.transform = CGAffineTransform(translationX: 0, y: -height)
+            self.bottomView.transform = CGAffineTransform(translationX: 0, y: -height)
+            self.middleView.transform = CGAffineTransform(translationX: 0, y: -height)
             // 바텀뷰만 움직이고 테이블뷰는 크기가 줄어들어야 한다.
         })
     }
@@ -79,12 +102,31 @@ class ViewController: UIViewController {
 
 }
 
+extension ViewController: UITableViewDataSource{
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        chatContents.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? CustomTextCell else { return UITableViewCell() }
+        cell.myTextLabel.text = chatContents[indexPath.row]
+        cell.myTextLabel.backgroundColor = .yellow
+        cell.myTextLabel.textColor = .black
+        cell.myTextLabel.clipsToBounds = true
+        cell.myTextLabel.layer.cornerRadius = 10
+        cell.myTextLabel.insets = UIEdgeInsets(top: 10, left: 12, bottom: 10, right: 12)
+        
+        return cell
+    }
+    
+}
+
 extension ViewController: UITextViewDelegate{
     
     func textViewDidChange(_ textView: UITextView) {
         guard let text: String = textView.text else{ return }
         var space: Bool = false
-        var arr = text.map{
+        _ = text.map{
             if String($0) != " " && String($0) != "\n"{
                  space = true
             }
@@ -100,31 +142,52 @@ extension ViewController: UITextViewDelegate{
             myUpdateButton.isHidden = false
             mySharpButton.isHidden = true
         }
-        let fixedWidth = textView.frame.size.width
-        let newSize = textView.sizeThatFits(CGSize(width: fixedWidth, height: CGFloat.greatestFiniteMagnitude))
-        var newFrame = textView.frame
-        let clNum = (myTextView.text as NSString).substring(to: myTextView.selectedRange.location).components(separatedBy: .newlines).count
-        if clNum > 1 {
-            let height = newSize.height + 2//- 16.212890625
-            newFrame.size = CGSize(width: max(newSize.width, fixedWidth), height: min(height, maxTextHeight))
-            textView.frame = newFrame
-            myTextView.frame = newFrame
-            myChatView.frame.size = CGSize(width: myChatView.frame.size.width, height: myTextView.frame.size.height + 6) // +16
-            bottomView.frame.size = CGSize(width: bottomView.frame.size.width, height: myChatView.frame.size.height) // + 4
-            myMiddleCon.constant = bottomView.frame.size.height
+        
+        let contentHeight = textView.contentSize.height
+        let lineHeight = textView.font!.lineHeight
+        let numberOfLines = Int((contentHeight) / (lineHeight))
+        print(numberOfLines)
+        
+        if numberOfLines <= 5 {
+            if numberOfLines == 1{
+                myTextViewBottom.constant = 2
+//                myMiddleCon.constant = resultHeight + 1
+            }
+            else{
+                myTextViewBottom.constant = 2
+//                myMiddleCon.constant = resultHeight + 1
+            }
+            myTextViewTop.constant = 2
+            myTextViewBottom.constant = 2
+            myMiddleCon.constant = myTextView.contentSize.height + 8
+        } else{
+            myTextViewTop.constant = myTextView.font!.lineHeight / 2
+            myTextViewBottom.constant = myTextView.font!.lineHeight / 2
         }
-//        let height = newSize.height + 8//- 16.212890625
-//        newFrame.size = CGSize(width: max(newSize.width, fixedWidth), height: min(height, maxTextHeight))
-//        textView.frame = newFrame
-//        myTextView.frame = newFrame
-//        myChatView.frame.size = CGSize(width: myChatView.frame.size.width, height: myTextView.frame.size.height) // +16
-//        bottomView.frame.size = CGSize(width: bottomView.frame.size.width, height: myChatView.frame.size.height) // + 4
-//        myMiddleCon.constant = bottomView.frame.size.height
-        print(myTextView.frame.size.height)
-        print(myChatView.frame.size.height)
-        print(bottomView.frame.size.height)
-        print(myMiddleCon.constant)
-        print(clNum)
     }
+}
+
+class CustomTextCell: UITableViewCell{
+    @IBOutlet weak var myTextLabel: PaddingLabel!
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 3, left: 15, bottom: 3, right: 15))
+    }
+}
+
+class PaddingLabel: UILabel{
+    var insets: UIEdgeInsets = .zero
+
+        override func drawText(in rect: CGRect) {
+            let insetsRect = rect.inset(by: insets)
+            super.drawText(in: insetsRect)
+        }
+
+        override var intrinsicContentSize: CGSize {
+            let size = super.intrinsicContentSize
+            return CGSize(width: size.width + insets.left + insets.right,
+                          height: size.height + insets.top + insets.bottom)
+        }
 }
 
