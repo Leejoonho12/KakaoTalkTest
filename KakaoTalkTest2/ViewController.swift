@@ -24,9 +24,39 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var myTableView: UITableView!
     
+    @IBOutlet weak var myMiddleTop: NSLayoutConstraint!
+    
     var maxTextHeight: CGFloat = 0
     
-    var chatContents: [String] = ["hello", "my", "name", "is", "l", "e", "e", "j", "o", "o", "n", "h", "o", "my", "name", "is", "l", "e", "e", "j", "o", "o", "n", "h", "o","가나다라마바사아자차카타파하 이건 긴 텍스트를 출력하는 테스트 입니다. 텍스트의 길이에 따라 라벨의 크기가 바뀌어야 합니다. 그리고 더 늘어나야 하는데 왜 안늘어나는지 알 수가 없네요 진짜 개빡치네 아아아아아아아아아아아앙 왜이래 이거는","dajshfakjfgbiuafbgidlfbkjvbdfjnaoifjbanefkjblsdkjfbnjsfbnifjbnvlskfjnbsiojbaoijfbnvlijdfbnvksjdfbnksjfdnbvlisdjfnbiajnbfoindfblkvjadnfsijsndfklvjdfn!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!?"]
+    var chatContents: [String] = ["hello", "my", "name", "is", "l", "e", "e", "j", "o", "o", "n", "h", "o", "my", "name", "is", "l", "e", "e", "j", "o", "o", "n", "h", "o","가나다라마바사아자차카타파하 이건 긴 텍스트를 출력하는 테스트 입니다. 텍스트의 길이에 따라 라벨의 크기가 바뀌어야 합니다.","dajshfakjfgbiuafbgidlfbkjvbdfjnaoifjbanefkjblsdkjfbnjsfbnifjbnvlskfjnbsiojbaoijfbnvlijdfbnvksjdfbnksjfdnbvlisdjfnbiajnbfoindfblkvjadnfsijsndfklvjdfn!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!?"]
+    var contents: [CellItem] = [
+        MyCustomCellItem(myText: "hello", mycheckNumber: 1, myTime: "11 : 09"),
+        MyCustomCellItem(myText: "my", mycheckNumber: 1, myTime: "11 : 09"),
+        MyCustomCellItem(myText: "name", mycheckNumber: 1, myTime: "11 : 09"),
+        MyCustomCellItem(myText: "is", mycheckNumber: 1, myTime: "11 : 09"),
+        MyCustomCellItem(myText: "lee", mycheckNumber: 1, myTime: "11 : 09"),
+        MyCustomCellItem(myText: "joon", mycheckNumber: 1, myTime: "11 : 10"),
+        MyCustomCellItem(myText: "ho", mycheckNumber: 1, myTime: "11 : 10"),
+        MyCustomCellItem(myText: "what", mycheckNumber: 1, myTime: "11 : 25"),
+        MyCustomCellItem(myText: "your", mycheckNumber: 1, myTime: "11 : 25"),
+        MyCustomCellItem(myText: "name", mycheckNumber: 1, myTime: "11 : 25"),
+        MyCustomCellItem(myText: "how", mycheckNumber: 1, myTime: "11 : 26"),
+        MyCustomCellItem(myText: "are", mycheckNumber: 1, myTime: "11 : 27"),
+        MyCustomCellItem(myText: "you", mycheckNumber: 1, myTime: "11 : 27"),
+        MyCustomCellItem(myText: "I", mycheckNumber: 1, myTime: "11 : 41"),
+        MyCustomCellItem(myText: "am", mycheckNumber: 1, myTime: "11 : 41"),
+        MyCustomCellItem(myText: "fine", mycheckNumber: 1, myTime: "11 : 41"),
+        MyCustomCellItem(myText: "thank", mycheckNumber: 1, myTime: "11 : 41"),
+        MyCustomCellItem(myText: "you", mycheckNumber: 1, myTime: "11 : 41"),
+        MyCustomCellItem(myText: "and", mycheckNumber: 1, myTime: "11 : 42"),
+        MyCustomCellItem(myText: "you", mycheckNumber: 1, myTime: "11 : 42"),
+        MyCustomCellItem(myText: "listen", mycheckNumber: 1, myTime: "12 : 01"),
+        MyCustomCellItem(myText: "to", mycheckNumber: 1, myTime: "12 : 01"),
+        MyCustomCellItem(myText: "my", mycheckNumber: 1, myTime: "12 : 01"),
+        MyCustomCellItem(myText: "heart", mycheckNumber: 1, myTime: "12 : 01"),
+        MyCustomCellItem(myText: "beat", mycheckNumber: 1, myTime: "12 : 01"),
+        MyCustomCellItem(myText: "wow", mycheckNumber: 1, myTime: "12 : 39"),
+        YourCustomCellItem(myText: "testtext", mycheckNumber: 1, myTime: "13 : 45", myName: "이준호")]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,26 +64,33 @@ class ViewController: UIViewController {
         UISetting()
         addObservers()
         
-        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTap)))
+        middleView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTap)))
         DispatchQueue.main.asyncAfter(deadline:  .now() + 0.1, execute: { self.scrollDown() })
     }
     
     @IBAction func addChat(_ sender: Any) {
         guard let content: String = myTextView.text else{ return }
-        chatContents.append(content)
+        let formatter = DateFormatter()
+        formatter.dateFormat = "HH : mm"
+        let currentDateString = formatter.string(from: Date())
+        contents.append(MyCustomCellItem(myText: content, mycheckNumber: 1, myTime: currentDateString))
         myTableView.reloadData()
         myTextView.text = ""
         textViewDidChange(myTextView)
-        showAnimation(0)
-        self.view.endEditing(true)
+//        showAnimation(0)
+//        self.view.endEditing(true)
         myUpdateButton.isHidden = true
         mySharpButton.isHidden = false
-        DispatchQueue.main.asyncAfter(deadline:  .now() + 0.1, execute: { self.scrollDown() })
+        scrollDown()
     }
     
     private func scrollDown(){
-        let bottomOffset = CGPoint(x: 0, y: myTableView.contentSize.height - myTableView.bounds.height)
-        myTableView.setContentOffset(bottomOffset, animated: false)
+        DispatchQueue.main.async {
+            let lastSection = self.myTableView.numberOfSections - 1
+            let lastRowInLastSection = self.myTableView.numberOfRows(inSection: lastSection) - 1
+            let indexPath = IndexPath(row: lastRowInLastSection, section: lastSection)
+            self.myTableView.scrollToRow(at: indexPath, at: .bottom, animated: false)
+        }
     }
     
     private func UISetting(){
@@ -61,7 +98,6 @@ class ViewController: UIViewController {
         myChatView.clipsToBounds = true
         myChatView.layer.cornerRadius = myChatView.frame.size.height / 2
         myUpdateButton.isHidden = true
-        myTextView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
     }
 
     private func addObservers() {
@@ -83,12 +119,15 @@ class ViewController: UIViewController {
               let keyboardFrame = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue,
               case let adjustmentHeight = keyboardFrame.height - self.view.safeAreaInsets.bottom
         else { return }
-        
+        myTableView.contentInset.top = adjustmentHeight
+        myTableView.verticalScrollIndicatorInsets.top = adjustmentHeight
         showAnimation(adjustmentHeight)
     }
 
     @objc
     func keyboardWillDisappear(noti: NSNotification){
+        myTableView.contentInset.top = 0
+        myTableView.verticalScrollIndicatorInsets.top = 0
         showAnimation(0)
     }
     
@@ -104,18 +143,30 @@ class ViewController: UIViewController {
 
 extension ViewController: UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        chatContents.count
+        contents.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? CustomTextCell else { return UITableViewCell() }
-        cell.myTextLabel.text = chatContents[indexPath.row]
+        cell.myTimeLabel.text = contents[indexPath.row].myTime
+        if indexPath.row != contents.count - 1{
+            if contents[indexPath.row].myTime == contents[indexPath.row + 1].myTime{
+                cell.myTimeLabel.isHidden = true
+            } else{
+                cell.myTimeLabel.isHidden = false
+            }
+        }else{
+            cell.myTimeLabel.isHidden = false
+        }
+        let textWidth = cell.myTimeLabel.sizeThatFits(CGSize(width: CGFloat.greatestFiniteMagnitude, height: cell.myTimeLabel.frame.size.height)).width
+        cell.myTimeWidth.constant = textWidth
+        cell.myTimeLabel.textColor = .gray
+        cell.myTextLabel.text = contents[indexPath.row].myText
+        cell.myCornerView.backgroundColor = .yellow
         cell.myTextLabel.backgroundColor = .yellow
         cell.myTextLabel.textColor = .black
-//        cell.myTextLabel.clipsToBounds = true
-//        cell.myTextLabel.layer.cornerRadius = 10
-//        cell.myTextLabel.insets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
-        
+        cell.myCornerView.clipsToBounds = true
+        cell.myCornerView.layer.cornerRadius = 10
         return cell
     }
     
@@ -146,20 +197,12 @@ extension ViewController: UITextViewDelegate{
         let contentHeight = textView.contentSize.height
         let lineHeight = textView.font!.lineHeight
         let numberOfLines = Int((contentHeight) / (lineHeight))
-        print(numberOfLines)
         
         if numberOfLines <= 5 {
-            if numberOfLines == 1{
-                myTextViewBottom.constant = 2
-//                myMiddleCon.constant = resultHeight + 1
-            }
-            else{
-                myTextViewBottom.constant = 2
-//                myMiddleCon.constant = resultHeight + 1
-            }
             myTextViewTop.constant = 2
             myTextViewBottom.constant = 2
             myMiddleCon.constant = myTextView.contentSize.height + 8
+            scrollDown()
         } else{
             myTextViewTop.constant = myTextView.font!.lineHeight / 2
             myTextViewBottom.constant = myTextView.font!.lineHeight / 2
@@ -172,10 +215,17 @@ class CustomTextCell: UITableViewCell{
     
     @IBOutlet weak var myTextArea: UIStackView!
     
-//    override func layoutSubviews() {
-//        super.layoutSubviews()
-//        contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 15))
-//    }
+    @IBOutlet weak var myTimeLabel: UILabel!
+    
+    @IBOutlet weak var myCornerView: UIView!
+    
+    @IBOutlet weak var myTimeWidth: NSLayoutConstraint!
+}
+
+class CustomProfileCell: UITableViewCell{
+    
+    @IBOutlet weak var yourTextLabel: UILabel!
+    
 }
 
 class PaddingLabel: UILabel{
@@ -193,3 +243,21 @@ class PaddingLabel: UILabel{
         }
 }
 
+protocol CellItem{
+    var myText: String { get set }
+    var mycheckNumber: Int { get set }
+    var myTime: String { get set }
+}
+
+struct MyCustomCellItem: CellItem{
+    var myText: String
+    var mycheckNumber: Int
+    var myTime: String
+}
+
+struct YourCustomCellItem: CellItem{
+    var myText: String
+    var mycheckNumber: Int
+    var myTime: String
+    var myName: String
+}
