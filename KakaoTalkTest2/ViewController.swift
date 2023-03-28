@@ -26,36 +26,42 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var myMiddleTop: NSLayoutConstraint!
     
+    @IBOutlet weak var myChangeButton: UIButton!
+    
     var maxTextHeight: CGFloat = 0
     
+    var name: String = "리준호"
+    
+    var state: Int = 0
+    
     var contents: [CellItem] = [
-        MyCustomCellItem(myText: "hello", mycheckNumber: 1, myTime: "11 : 09"),
-        MyCustomCellItem(myText: "my", mycheckNumber: 1, myTime: "11 : 09"),
-        MyCustomCellItem(myText: "name", mycheckNumber: 1, myTime: "11 : 09"),
-        MyCustomCellItem(myText: "is", mycheckNumber: 1, myTime: "11 : 09"),
-        MyCustomCellItem(myText: "lee", mycheckNumber: 1, myTime: "11 : 09"),
-        MyCustomCellItem(myText: "joon", mycheckNumber: 1, myTime: "11 : 10"),
-        MyCustomCellItem(myText: "ho", mycheckNumber: 1, myTime: "11 : 10"),
-        MyCustomCellItem(myText: "what", mycheckNumber: 1, myTime: "11 : 25"),
-        MyCustomCellItem(myText: "your", mycheckNumber: 1, myTime: "11 : 25"),
-        MyCustomCellItem(myText: "name", mycheckNumber: 1, myTime: "11 : 25"),
-        MyCustomCellItem(myText: "how", mycheckNumber: 1, myTime: "11 : 26"),
-        MyCustomCellItem(myText: "are", mycheckNumber: 1, myTime: "11 : 27"),
-        MyCustomCellItem(myText: "you", mycheckNumber: 1, myTime: "11 : 27"),
-        MyCustomCellItem(myText: "I", mycheckNumber: 1, myTime: "11 : 41"),
-        MyCustomCellItem(myText: "am", mycheckNumber: 1, myTime: "11 : 41"),
-        MyCustomCellItem(myText: "fine", mycheckNumber: 1, myTime: "11 : 41"),
-        MyCustomCellItem(myText: "thank", mycheckNumber: 1, myTime: "11 : 41"),
-        MyCustomCellItem(myText: "you", mycheckNumber: 1, myTime: "11 : 41"),
-        MyCustomCellItem(myText: "and", mycheckNumber: 1, myTime: "11 : 42"),
-        MyCustomCellItem(myText: "you", mycheckNumber: 1, myTime: "11 : 42"),
-        MyCustomCellItem(myText: "listen", mycheckNumber: 1, myTime: "12 : 01"),
-        MyCustomCellItem(myText: "to", mycheckNumber: 1, myTime: "12 : 01"),
-        MyCustomCellItem(myText: "my", mycheckNumber: 1, myTime: "12 : 01"),
-        MyCustomCellItem(myText: "heart", mycheckNumber: 1, myTime: "12 : 01"),
-        MyCustomCellItem(myText: "beat", mycheckNumber: 1, myTime: "12 : 01"),
-        MyCustomCellItem(myText: "wow", mycheckNumber: 1, myTime: "12 : 39"),
-        YourCustomCellItem(myText: "testtext\ntesttext", mycheckNumber: 1, myTime: "13 : 45", myName: "이준호")]
+        CellItem("hello", 0, "11 : 09", "리준호", 1),
+        CellItem("my", 0, "11 : 09", "리준호", 2),
+        CellItem("name", 0, "11 : 09", "리준호", 2),
+        CellItem("is", 0, "11 : 09", "리준호", 2),
+        CellItem("lee", 0, "11 : 09", "리준호", 2),
+        CellItem("joon", 0, "11 : 10", "리준호", 2),
+        CellItem("ho", 0, "11 : 10", "리준호", 2),
+        CellItem("what", 0, "11 : 25", "리준호", 2),
+        CellItem("your", 0, "11 : 25", "리준호", 2),
+        CellItem("name", 0, "11 : 25", "리준호", 2),
+        CellItem("how", 0, "11 : 26", "리준호", 2),
+        CellItem("are", 0, "11 : 27", "리준호", 2),
+        CellItem("you", 0, "11 : 27", "리준호", 2),
+        CellItem("I", 0, "11 : 41", "리준호", 2),
+        CellItem("am", 0, "11 : 41", "리준호", 2),
+        CellItem("fine", 0, "11 : 41", "리준호", 2),
+        CellItem("thank", 0, "11 : 41", "리준호", 2),
+        CellItem("you", 0, "11 : 41", "리준호", 2),
+        CellItem("and", 0, "11 : 42", "리준호", 2),
+        CellItem("you", 0, "11 : 42", "리준호", 2),
+        CellItem("listen", 0, "12 : 01", "리준호", 2),
+        CellItem("to", 0, "12 : 01", "리준호", 2),
+        CellItem("my", 0, "12 : 01", "리준호", 2),
+        CellItem("heart", 0, "12 : 01", "리준호", 2),
+        CellItem("beat", 0, "12 : 01", "리준호", 2),
+        CellItem("wow", 0, "12 : 39", "리준호", 2),
+        CellItem("testtext\ntesttext\ntesttext\ntesttext\ntesttext\ntesttext", 1, "13 : 45", "이준호", 3)]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -67,17 +73,57 @@ class ViewController: UIViewController {
         DispatchQueue.main.asyncAfter(deadline:  .now() + 0.1, execute: { self.scrollDown() })
     }
     
+    @IBAction func turnChange(_ sender: Any) {
+        if name == "리준호"{
+            name = "이준호"
+            myChangeButton.backgroundColor = .yellow
+        }else if name == "이준호"{
+            name = "리준호"
+            myChangeButton.backgroundColor = .gray
+        }
+    }
+    
     @IBAction func addChat(_ sender: Any) {
         guard let content: String = myTextView.text else{ return }
         let formatter = DateFormatter()
         formatter.dateFormat = "HH : mm"
         let currentDateString = formatter.string(from: Date())
-        contents.append(MyCustomCellItem(myText: content, mycheckNumber: 1, myTime: currentDateString))
+        if name == "리준호"{
+            if contents.last?.myState == 3 || contents.last?.myState == 4{
+                state = 1
+                for seq in 0...(contents.count - 1){
+                    contents[seq].mycheckNumber -= 1
+                }
+            } else if contents.last?.myState == 1{
+                state = 2
+            } else {
+                state = 2
+            }
+        } else if name == "이준호"{
+            if contents.last?.myState == 1 || contents.last?.myState == 2{
+                state = 3
+                for seq in 0...(contents.count - 1){
+                    contents[seq].mycheckNumber -= 1
+                }
+            } else if contents.last?.myState == 3{
+                state = 4
+            } else {
+                state = 4
+            }
+        }
+        contents.append(CellItem(content, 1, currentDateString, name, state))
+//        if name == "리준호"{
+//            who = .myturn
+//        }else if name == "이준호"{
+//            who = .yourturn
+//        }
+        let encoder = JSONEncoder()
+        if let encoded = try? encoder.encode(contents){
+            UserDefaults.standard.setValue(encoded, forKey: "chat6")
+        }
         myTableView.reloadData()
         myTextView.text = ""
         textViewDidChange(myTextView)
-//        showAnimation(0)
-//        self.view.endEditing(true)
         myUpdateButton.isHidden = true
         mySharpButton.isHidden = false
         scrollDown()
@@ -97,6 +143,7 @@ class ViewController: UIViewController {
         myChatView.clipsToBounds = true
         myChatView.layer.cornerRadius = myChatView.frame.size.height / 2
         myUpdateButton.isHidden = true
+        myChangeButton.backgroundColor = .gray
     }
 
     private func addObservers() {
@@ -141,18 +188,28 @@ class ViewController: UIViewController {
 }
 
 extension ViewController: UITableViewDataSource{
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        contents.count
+        if let chatData = UserDefaults.standard.object(forKey: "chat6") as? Data {
+            if let chatObject = try? JSONDecoder().decode([CellItem].self, from: chatData){
+                contents = chatObject
+            }
+        }
+        return contents.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if ((contents[indexPath.row] as? MyCustomCellItem) != nil){
+        if contents[indexPath.row].myName == "리준호"{
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? CustomTextCell else { return UITableViewCell() }
             cell.myTimeLabel.text = contents[indexPath.row].myTime
             if indexPath.row != contents.count - 1{
-                if contents[indexPath.row].myTime == contents[indexPath.row + 1].myTime{
-                    cell.myTimeLabel.isHidden = true
-                } else{
+                if contents[indexPath.row + 1].myState == 2{
+                    if contents[indexPath.row].myTime == contents[indexPath.row + 1].myTime{
+                        cell.myTimeLabel.isHidden = true
+                    }else{
+                        cell.myTimeLabel.isHidden = false
+                    }
+                }else{
                     cell.myTimeLabel.isHidden = false
                 }
             }else{
@@ -167,45 +224,57 @@ extension ViewController: UITableViewDataSource{
             cell.myTextLabel.textColor = .black
             cell.myCornerView.clipsToBounds = true
             cell.myCornerView.layer.cornerRadius = 10
+            if contents[indexPath.row].mycheckNumber <= 0{
+                cell.myCheckLabel.isHidden = true
+            } else {
+                cell.myCheckLabel.isHidden = false
+            }
             return cell
-        } else if ((contents[indexPath.row] as? YourCustomCellItem) != nil){
+        } else if contents[indexPath.row].myName == "이준호"{
             guard let cell2 = tableView.dequeueReusableCell(withIdentifier: "cell2", for: indexPath) as? CustomProfileCell else { return UITableViewCell() }
+            if indexPath.row != contents.count - 1{
+                if contents[indexPath.row + 1].myState == 4{
+                    if contents[indexPath.row].myTime == contents[indexPath.row + 1].myTime{
+                        cell2.yourTimeLabel.isHidden = true
+                    }else{
+                        cell2.yourTimeLabel.isHidden = false
+                    }
+                }else{
+                    cell2.yourTimeLabel.isHidden = false
+                }
+            }else{
+                cell2.yourTimeLabel.isHidden = false
+            }
             cell2.yourTextLabel.text = contents[indexPath.row].myText
             cell2.yourTextLabel.textColor = .white
             cell2.yourImageView.clipsToBounds = true
-            cell2.yourImageView.layer.cornerRadius = 25
+            cell2.yourImageView.layer.cornerRadius = 20
             cell2.yourCornerView.clipsToBounds = true
             cell2.yourCornerView.layer.cornerRadius = 10
             cell2.yourCornerView.backgroundColor = .gray
             cell2.yourTimeLabel.text = contents[indexPath.row].myTime
             cell2.yourTimeLabel.textColor = .gray
+            let textWidth = cell2.yourTimeLabel.sizeThatFits(CGSize(width: CGFloat.greatestFiniteMagnitude, height: cell2.yourTimeLabel.frame.size.height)).width
+            cell2.yourTimeWidth.constant = textWidth
+            if contents[indexPath.row].mycheckNumber <= 0{
+                cell2.myCheckLabel.isHidden = true
+            } else {
+                cell2.myCheckLabel.isHidden = false
+            }
+            if contents[indexPath.row].myState == 4{
+                cell2.yourImageView.image = .none
+                cell2.myNameLabel.isHidden = true
+                cell2.myImageHeight.constant = 30
+            }else{
+                cell2.myNameLabel.isHidden = false
+                cell2.yourImageView.image = UIImage(named: "태연")
+                cell2.myImageHeight.constant = 50
+            }
             return cell2
         }else{
             return UITableViewCell()
         }
-//        guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? CustomTextCell else { return UITableViewCell() }
-//        cell.myTimeLabel.text = contents[indexPath.row].myTime
-//        if indexPath.row != contents.count - 1{
-//            if contents[indexPath.row].myTime == contents[indexPath.row + 1].myTime{
-//                cell.myTimeLabel.isHidden = true
-//            } else{
-//                cell.myTimeLabel.isHidden = false
-//            }
-//        }else{
-//            cell.myTimeLabel.isHidden = false
-//        }
-//        let textWidth = cell.myTimeLabel.sizeThatFits(CGSize(width: CGFloat.greatestFiniteMagnitude, height: cell.myTimeLabel.frame.size.height)).width
-//        cell.myTimeWidth.constant = textWidth
-//        cell.myTimeLabel.textColor = .gray
-//        cell.myTextLabel.text = contents[indexPath.row].myText
-//        cell.myCornerView.backgroundColor = .yellow
-//        cell.myTextLabel.backgroundColor = .yellow
-//        cell.myTextLabel.textColor = .black
-//        cell.myCornerView.clipsToBounds = true
-//        cell.myCornerView.layer.cornerRadius = 10
-//        return cell
     }
-    
 }
 
 extension ViewController: UITextViewDelegate{
@@ -256,6 +325,8 @@ class CustomTextCell: UITableViewCell{
     @IBOutlet weak var myCornerView: UIView!
     
     @IBOutlet weak var myTimeWidth: NSLayoutConstraint!
+    
+    @IBOutlet weak var myCheckLabel: UILabel!
 }
 
 class CustomProfileCell: UITableViewCell{
@@ -268,6 +339,15 @@ class CustomProfileCell: UITableViewCell{
     
     @IBOutlet weak var yourTimeLabel: UILabel!
     
+    @IBOutlet weak var yourTimeWidth: NSLayoutConstraint!
+    
+    @IBOutlet weak var myCheckLabel: UILabel!
+    
+    @IBOutlet weak var myNameLabel: UILabel!
+    
+    @IBOutlet weak var myImageWidth: NSLayoutConstraint!
+    
+    @IBOutlet weak var myImageHeight: NSLayoutConstraint!
 }
 
 class PaddingLabel: UILabel{
@@ -285,21 +365,23 @@ class PaddingLabel: UILabel{
         }
 }
 
-protocol CellItem{
-    var myText: String { get set }
-    var mycheckNumber: Int { get set }
-    var myTime: String { get set }
-}
-
-struct MyCustomCellItem: CellItem{
+class CellItem: Encodable, Decodable{
+    
     var myText: String
+    
     var mycheckNumber: Int
+    
     var myTime: String
-}
-
-struct YourCustomCellItem: CellItem{
-    var myText: String
-    var mycheckNumber: Int
-    var myTime: String
+    
     var myName: String
+    
+    var myState: Int
+    
+    init(_ text: String, _ num: Int, _ time: String, _ name: String, _ state: Int){
+        self.myText = text
+        self.mycheckNumber = num
+        self.myTime = time
+        self.myName = name
+        self.myState = state
+    }
 }
