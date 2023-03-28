@@ -203,13 +203,13 @@
                                                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="P2B-4w-VtR">
                                                                                     <rect key="frame" x="0.0" y="41.666666666666664" width="40.666666666666664" height="28.666666666666664"/>
                                                                                     <subviews>
-                                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kPl-pC-NT0">
+                                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kPl-pC-NT0">
                                                                                             <rect key="frame" x="0.0" y="0.0" width="40.666666666666664" height="14.333333333333334"/>
                                                                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                                                             <color key="textColor" systemColor="systemYellowColor"/>
                                                                                             <nil key="highlightedColor"/>
                                                                                         </label>
-                                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="03 : 56" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9XJ-TT-PvI">
+                                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="03 : 56" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9XJ-TT-PvI">
                                                                                             <rect key="frame" x="0.0" y="14.333333333333336" width="40.666666666666664" height="14.333333333333336"/>
                                                                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                                                             <nil key="textColor"/>
@@ -232,7 +232,10 @@
                                                     </constraints>
                                                 </tableViewCellContentView>
                                                 <connections>
+                                                    <outlet property="yourCornerView" destination="nvd-kT-fEb" id="bXu-SX-vBc"/>
+                                                    <outlet property="yourImageView" destination="pXC-gD-ENz" id="y26-ja-FDf"/>
                                                     <outlet property="yourTextLabel" destination="mDQ-AG-tTM" id="2jg-zK-fS8"/>
+                                                    <outlet property="yourTimeLabel" destination="9XJ-TT-PvI" id="J6d-0x-4yh"/>
                                                 </connections>
                                             </tableViewCell>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" id="IoT-Y2-Rd6" customClass="CustomTextCell" customModule="KakaoTalkTest2" customModuleProvider="target">

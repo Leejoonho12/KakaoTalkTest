@@ -28,7 +28,6 @@ class ViewController: UIViewController {
     
     var maxTextHeight: CGFloat = 0
     
-    var chatContents: [String] = ["hello", "my", "name", "is", "l", "e", "e", "j", "o", "o", "n", "h", "o", "my", "name", "is", "l", "e", "e", "j", "o", "o", "n", "h", "o","가나다라마바사아자차카타파하 이건 긴 텍스트를 출력하는 테스트 입니다. 텍스트의 길이에 따라 라벨의 크기가 바뀌어야 합니다.","dajshfakjfgbiuafbgidlfbkjvbdfjnaoifjbanefkjblsdkjfbnjsfbnifjbnvlskfjnbsiojbaoijfbnvlijdfbnvksjdfbnksjfdnbvlisdjfnbiajnbfoindfblkvjadnfsijsndfklvjdfn!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!?"]
     var contents: [CellItem] = [
         MyCustomCellItem(myText: "hello", mycheckNumber: 1, myTime: "11 : 09"),
         MyCustomCellItem(myText: "my", mycheckNumber: 1, myTime: "11 : 09"),
@@ -56,7 +55,7 @@ class ViewController: UIViewController {
         MyCustomCellItem(myText: "heart", mycheckNumber: 1, myTime: "12 : 01"),
         MyCustomCellItem(myText: "beat", mycheckNumber: 1, myTime: "12 : 01"),
         MyCustomCellItem(myText: "wow", mycheckNumber: 1, myTime: "12 : 39"),
-        YourCustomCellItem(myText: "testtext", mycheckNumber: 1, myTime: "13 : 45", myName: "이준호")]
+        YourCustomCellItem(myText: "testtext\ntesttext", mycheckNumber: 1, myTime: "13 : 45", myName: "이준호")]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -147,27 +146,64 @@ extension ViewController: UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? CustomTextCell else { return UITableViewCell() }
-        cell.myTimeLabel.text = contents[indexPath.row].myTime
-        if indexPath.row != contents.count - 1{
-            if contents[indexPath.row].myTime == contents[indexPath.row + 1].myTime{
-                cell.myTimeLabel.isHidden = true
-            } else{
+        if ((contents[indexPath.row] as? MyCustomCellItem) != nil){
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? CustomTextCell else { return UITableViewCell() }
+            cell.myTimeLabel.text = contents[indexPath.row].myTime
+            if indexPath.row != contents.count - 1{
+                if contents[indexPath.row].myTime == contents[indexPath.row + 1].myTime{
+                    cell.myTimeLabel.isHidden = true
+                } else{
+                    cell.myTimeLabel.isHidden = false
+                }
+            }else{
                 cell.myTimeLabel.isHidden = false
             }
+            let textWidth = cell.myTimeLabel.sizeThatFits(CGSize(width: CGFloat.greatestFiniteMagnitude, height: cell.myTimeLabel.frame.size.height)).width
+            cell.myTimeWidth.constant = textWidth
+            cell.myTimeLabel.textColor = .gray
+            cell.myTextLabel.text = contents[indexPath.row].myText
+            cell.myCornerView.backgroundColor = .yellow
+            cell.myTextLabel.backgroundColor = .yellow
+            cell.myTextLabel.textColor = .black
+            cell.myCornerView.clipsToBounds = true
+            cell.myCornerView.layer.cornerRadius = 10
+            return cell
+        } else if ((contents[indexPath.row] as? YourCustomCellItem) != nil){
+            guard let cell2 = tableView.dequeueReusableCell(withIdentifier: "cell2", for: indexPath) as? CustomProfileCell else { return UITableViewCell() }
+            cell2.yourTextLabel.text = contents[indexPath.row].myText
+            cell2.yourTextLabel.textColor = .white
+            cell2.yourImageView.clipsToBounds = true
+            cell2.yourImageView.layer.cornerRadius = 25
+            cell2.yourCornerView.clipsToBounds = true
+            cell2.yourCornerView.layer.cornerRadius = 10
+            cell2.yourCornerView.backgroundColor = .gray
+            cell2.yourTimeLabel.text = contents[indexPath.row].myTime
+            cell2.yourTimeLabel.textColor = .gray
+            return cell2
         }else{
-            cell.myTimeLabel.isHidden = false
+            return UITableViewCell()
         }
-        let textWidth = cell.myTimeLabel.sizeThatFits(CGSize(width: CGFloat.greatestFiniteMagnitude, height: cell.myTimeLabel.frame.size.height)).width
-        cell.myTimeWidth.constant = textWidth
-        cell.myTimeLabel.textColor = .gray
-        cell.myTextLabel.text = contents[indexPath.row].myText
-        cell.myCornerView.backgroundColor = .yellow
-        cell.myTextLabel.backgroundColor = .yellow
-        cell.myTextLabel.textColor = .black
-        cell.myCornerView.clipsToBounds = true
-        cell.myCornerView.layer.cornerRadius = 10
-        return cell
+//        guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? CustomTextCell else { return UITableViewCell() }
+//        cell.myTimeLabel.text = contents[indexPath.row].myTime
+//        if indexPath.row != contents.count - 1{
+//            if contents[indexPath.row].myTime == contents[indexPath.row + 1].myTime{
+//                cell.myTimeLabel.isHidden = true
+//            } else{
+//                cell.myTimeLabel.isHidden = false
+//            }
+//        }else{
+//            cell.myTimeLabel.isHidden = false
+//        }
+//        let textWidth = cell.myTimeLabel.sizeThatFits(CGSize(width: CGFloat.greatestFiniteMagnitude, height: cell.myTimeLabel.frame.size.height)).width
+//        cell.myTimeWidth.constant = textWidth
+//        cell.myTimeLabel.textColor = .gray
+//        cell.myTextLabel.text = contents[indexPath.row].myText
+//        cell.myCornerView.backgroundColor = .yellow
+//        cell.myTextLabel.backgroundColor = .yellow
+//        cell.myTextLabel.textColor = .black
+//        cell.myCornerView.clipsToBounds = true
+//        cell.myCornerView.layer.cornerRadius = 10
+//        return cell
     }
     
 }
@@ -225,6 +261,12 @@ class CustomTextCell: UITableViewCell{
 class CustomProfileCell: UITableViewCell{
     
     @IBOutlet weak var yourTextLabel: UILabel!
+    
+    @IBOutlet weak var yourImageView: UIImageView!
+    
+    @IBOutlet weak var yourCornerView: UIView!
+    
+    @IBOutlet weak var yourTimeLabel: UILabel!
     
 }
 
