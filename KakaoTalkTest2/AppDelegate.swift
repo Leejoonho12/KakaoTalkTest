@@ -1,10 +1,3 @@
-//
-//  AppDelegate.swift
-//  KakaoTalkTest2
-//
-//  Created by Mac on 2023/03/23.
-//
-
 import UIKit
 
 @main
