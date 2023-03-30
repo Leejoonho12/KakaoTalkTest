@@ -41,33 +41,8 @@ class ViewController: UIViewController {
     var findLength: Int = 0
     
     var contents: [CellItem] = [
-        CellItem("hello", 0, "2023년 03월 29일 수요일", "11 : 09", "리준호", 1, Data(), true, false),
-        CellItem("my", 0, "2023년 03월 29일 수요일", "11 : 09", "리준호", 2, Data(), true, false),
-        CellItem("name", 0, "2023년 03월 29일 수요일", "11 : 09", "리준호", 2, Data(), true, false),
-        CellItem("is", 0, "2023년 03월 29일 수요일", "11 : 09", "리준호", 2, Data(), true, false),
-        CellItem("lee", 0, "2023년 03월 29일 수요일", "11 : 09", "리준호", 2, Data(), true, false),
-        CellItem("joon", 0, "2023년 03월 29일 수요일", "11 : 10", "리준호", 2, Data(), true, false),
-        CellItem("ho", 0, "2023년 03월 29일 수요일", "11 : 10", "리준호", 2, Data(), true, false),
-        CellItem("what", 0, "2023년 03월 29일 수요일", "11 : 25", "리준호", 2, Data(), true, false),
-        CellItem("your", 0, "2023년 03월 29일 수요일", "11 : 25", "리준호", 2, Data(), true, false),
-        CellItem("name", 0, "2023년 03월 29일 수요일", "11 : 25", "리준호", 2, Data(), true, false),
-        CellItem("how", 0, "2023년 03월 29일 수요일", "11 : 26", "리준호", 2, Data(), true, false),
-        CellItem("are", 0, "2023년 03월 29일 수요일", "11 : 27", "리준호", 2, Data(), true, false),
-        CellItem("you", 0, "2023년 03월 29일 수요일", "11 : 27", "리준호", 2, Data(), true, false),
-        CellItem("I", 0, "2023년 03월 29일 수요일", "11 : 41", "리준호", 2, Data(), true, false),
-        CellItem("am", 0, "2023년 03월 29일 수요일", "11 : 41", "리준호", 2, Data(), true, false),
-        CellItem("fine", 0, "2023년 03월 29일 수요일", "11 : 41", "리준호", 2, Data(), true, false),
-        CellItem("thank", 0, "2023년 03월 29일 수요일", "11 : 41", "리준호", 2, Data(), true, false),
-        CellItem("you", 0, "2023년 03월 29일 수요일", "11 : 41", "리준호", 2, Data(), true, false),
-        CellItem("and", 0, "2023년 03월 29일 수요일", "11 : 42", "리준호", 2, Data(), true, false),
-        CellItem("you", 0, "2023년 03월 29일 수요일", "11 : 42", "리준호", 2, Data(), true, false),
-        CellItem("listen", 0, "2023년 03월 29일 수요일", "12 : 01", "리준호", 2, Data(), true, false),
-        CellItem("to", 0, "2023년 03월 29일 수요일", "12 : 01", "리준호", 2, Data(), true, false),
-        CellItem("my", 0, "2023년 03월 29일 수요일", "12 : 01", "리준호", 2, Data(), true, false),
-        CellItem("heart", 0, "2023년 03월 29일 수요일", "12 : 01", "리준호", 2, Data(), true, false),
-        CellItem("beat", 0, "2023년 03월 29일 수요일", "12 : 01", "리준호", 2, Data(), true, false),
-        CellItem("wow", 0, "2023년 03월 29일 수요일", "12 : 39", "리준호", 2, Data(), true, false),
-        CellItem("testtext\ntesttext\ntesttext\ntesttext\ntesttext\ntesttext", 1, "2023년 03월 29일 수요일", "13 : 45", "이준호", 3, Data(), true, false)]
+        CellItem(" ", 0, "2023년 03월 29일 수요일", "11 : 09", "리준호", 1, Data(), true, true),
+        CellItem("hello", 0, "2023년 03월 29일 수요일", "11 : 09", "리준호", 1, Data(), true, false)]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -75,12 +50,13 @@ class ViewController: UIViewController {
         UISetting()
         addObservers()
         atherSetting()
-        UserDefaults.standard.removeObject(forKey: "chat0")
+        //UserDefaults.standard.removeObject(forKey: "chat0")
+        chatDataSetting()
+        
     }
     
     @IBAction
     func findString(_ sender: Any) {
-        print(view.safeAreaLayoutGuide.layoutFrame.width)
         var row: [Int] = []
         guard let text: String = myFindTextField.text else { return }
         for num in 0..<contents.count{
@@ -126,6 +102,14 @@ class ViewController: UIViewController {
         tableViewUpDate()
     }
     
+    func chatDataSetting(){
+        if let chatData = UserDefaults.standard.object(forKey: "chat0") as? Data {
+            if let chatObject = try? JSONDecoder().decode([CellItem].self, from: chatData){
+                contents = chatObject
+            }
+        }
+    }
+    
     func getTime() -> String{
         let formatter = DateFormatter()
         formatter.dateFormat = "HH : mm"
@@ -147,7 +131,9 @@ class ViewController: UIViewController {
             let lastSection = self.myTableView.numberOfSections - 1
             let lastRowInLastSection = self.myTableView.numberOfRows(inSection: lastSection) - 1
             let indexPath = IndexPath(row: lastRowInLastSection, section: lastSection)
-            self.myTableView.scrollToRow(at: indexPath, at: .bottom, animated: false)
+            if self.contents.count > 0{
+                self.myTableView.scrollToRow(at: indexPath, at: .bottom, animated: false)
+            }
         }
     }
     

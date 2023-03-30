@@ -4,11 +4,6 @@ import UIKit
 extension ViewController: UITableViewDataSource{
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if let chatData = UserDefaults.standard.object(forKey: "chat0") as? Data {
-            if let chatObject = try? JSONDecoder().decode([CellItem].self, from: chatData){
-                contents = chatObject
-            }
-        }
         return contents.count
     }
 
@@ -53,7 +48,8 @@ extension ViewController: UITableViewDataSource{
                 cell.myCornerView.isHidden = true
                 cell.myPicture.isHidden = false
                 if let myimage = UIImage(data: contents[indexPath.row].myImage){
-                    cell.myPicture.image = myimage
+                    let rotatedImage = UIImage(cgImage: myimage.cgImage!, scale: myimage.scale, orientation: .up)
+                    cell.myPicture.image = rotatedImage
                     let safeareaWidth = view.safeAreaLayoutGuide.layoutFrame.width
                     cell.pictureWidth.constant = safeareaWidth / 100 * 54.133333333333333
                     cell.pictureHeight.constant = myimage.size.height / (myimage.size.width / cell.pictureWidth.constant)
