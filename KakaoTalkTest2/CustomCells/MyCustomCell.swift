@@ -17,4 +17,6 @@ class CustomTextCell: UITableViewCell{
     @IBOutlet weak var myPicture: UIImageView!
     
     @IBOutlet weak var pictureHeight: NSLayoutConstraint!
+    
+    @IBOutlet weak var pictureWidth: NSLayoutConstraint!
 }

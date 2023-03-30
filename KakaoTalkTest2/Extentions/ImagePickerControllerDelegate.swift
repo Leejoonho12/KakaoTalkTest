@@ -6,12 +6,14 @@ extension ViewController: UIImagePickerControllerDelegate, UINavigationControlle
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let pickedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage{
             let imageData = pickedImage.pngData()
-            if let myData = imageData as? Data{
-                let formatter = DateFormatter()
-                formatter.dateFormat = "HH : mm"
-                let currentDateString = formatter.string(from: Date())
+            if let myData: Data = imageData{
+                let currentDateString = getTime()
+                let date: String = getDate()
                 setState()
-                contents.append(CellItem(" ", 1, currentDateString, name, state, myData, false))
+                if contents.last?.myDate != date{
+                    contents.append(CellItem(" ", 1, date, currentDateString, name, state, Data(), true, true))
+                }
+                contents.append(CellItem(" ", 1, date, currentDateString, name, state, myData, false, false))
                 tableViewUpDate()
             }
         }

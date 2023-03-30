@@ -25,5 +25,7 @@ class CustomProfileCell: UITableViewCell{
     
     @IBOutlet weak var pictureHeight: NSLayoutConstraint!
     
+    @IBOutlet weak var pictureWidth: NSLayoutConstraint!
+    
     @IBOutlet weak var myEmptyLabel: UILabel!
 }

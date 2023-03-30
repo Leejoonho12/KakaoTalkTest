@@ -7,6 +7,8 @@ class CellItem: Encodable, Decodable{
     
     var mycheckNumber: Int
     
+    var myDate: String
+    
     var myTime: String
     
     var myName: String
@@ -17,13 +19,17 @@ class CellItem: Encodable, Decodable{
     
     var isText: Bool
     
-    init(_ text: String, _ num: Int, _ time: String, _ name: String, _ state: Int, _ image: Data, _ istext: Bool){
+    var isDate: Bool
+    
+    init(_ text: String, _ num: Int, _ date: String, _ time: String, _ name: String, _ state: Int, _ image: Data, _ istext: Bool, _ isdate: Bool){
         self.myText = text
         self.mycheckNumber = num
+        self.myDate = date
         self.myTime = time
         self.myName = name
         self.myState = state
         self.myImage = image
         self.isText = istext
+        self.isDate = isdate
     }
 }

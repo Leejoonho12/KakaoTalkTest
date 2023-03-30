@@ -28,40 +28,46 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var myChangeButton: UIButton!
     
+    @IBOutlet weak var myFindTextField: UITextField!
+    
     var name: String = "리준호"
     
     var state: Int = 0
     
     let imagePicker = UIImagePickerController()
     
+    var findNumber: Int = 0
+    
+    var findLength: Int = 0
+    
     var contents: [CellItem] = [
-        CellItem("hello", 0, "11 : 09", "리준호", 1, Data(), true),
-        CellItem("my", 0, "11 : 09", "리준호", 2, Data(), true),
-        CellItem("name", 0, "11 : 09", "리준호", 2, Data(), true),
-        CellItem("is", 0, "11 : 09", "리준호", 2, Data(), true),
-        CellItem("lee", 0, "11 : 09", "리준호", 2, Data(), true),
-        CellItem("joon", 0, "11 : 10", "리준호", 2, Data(), true),
-        CellItem("ho", 0, "11 : 10", "리준호", 2, Data(), true),
-        CellItem("what", 0, "11 : 25", "리준호", 2, Data(), true),
-        CellItem("your", 0, "11 : 25", "리준호", 2, Data(), true),
-        CellItem("name", 0, "11 : 25", "리준호", 2, Data(), true),
-        CellItem("how", 0, "11 : 26", "리준호", 2, Data(), true),
-        CellItem("are", 0, "11 : 27", "리준호", 2, Data(), true),
-        CellItem("you", 0, "11 : 27", "리준호", 2, Data(), true),
-        CellItem("I", 0, "11 : 41", "리준호", 2, Data(), true),
-        CellItem("am", 0, "11 : 41", "리준호", 2, Data(), true),
-        CellItem("fine", 0, "11 : 41", "리준호", 2, Data(), true),
-        CellItem("thank", 0, "11 : 41", "리준호", 2, Data(), true),
-        CellItem("you", 0, "11 : 41", "리준호", 2, Data(), true),
-        CellItem("and", 0, "11 : 42", "리준호", 2, Data(), true),
-        CellItem("you", 0, "11 : 42", "리준호", 2, Data(), true),
-        CellItem("listen", 0, "12 : 01", "리준호", 2, Data(), true),
-        CellItem("to", 0, "12 : 01", "리준호", 2, Data(), true),
-        CellItem("my", 0, "12 : 01", "리준호", 2, Data(), true),
-        CellItem("heart", 0, "12 : 01", "리준호", 2, Data(), true),
-        CellItem("beat", 0, "12 : 01", "리준호", 2, Data(), true),
-        CellItem("wow", 0, "12 : 39", "리준호", 2, Data(), true),
-        CellItem("testtext\ntesttext\ntesttext\ntesttext\ntesttext\ntesttext", 1, "13 : 45", "이준호", 3, Data(), true)]
+        CellItem("hello", 0, "2023년 03월 29일 수요일", "11 : 09", "리준호", 1, Data(), true, false),
+        CellItem("my", 0, "2023년 03월 29일 수요일", "11 : 09", "리준호", 2, Data(), true, false),
+        CellItem("name", 0, "2023년 03월 29일 수요일", "11 : 09", "리준호", 2, Data(), true, false),
+        CellItem("is", 0, "2023년 03월 29일 수요일", "11 : 09", "리준호", 2, Data(), true, false),
+        CellItem("lee", 0, "2023년 03월 29일 수요일", "11 : 09", "리준호", 2, Data(), true, false),
+        CellItem("joon", 0, "2023년 03월 29일 수요일", "11 : 10", "리준호", 2, Data(), true, false),
+        CellItem("ho", 0, "2023년 03월 29일 수요일", "11 : 10", "리준호", 2, Data(), true, false),
+        CellItem("what", 0, "2023년 03월 29일 수요일", "11 : 25", "리준호", 2, Data(), true, false),
+        CellItem("your", 0, "2023년 03월 29일 수요일", "11 : 25", "리준호", 2, Data(), true, false),
+        CellItem("name", 0, "2023년 03월 29일 수요일", "11 : 25", "리준호", 2, Data(), true, false),
+        CellItem("how", 0, "2023년 03월 29일 수요일", "11 : 26", "리준호", 2, Data(), true, false),
+        CellItem("are", 0, "2023년 03월 29일 수요일", "11 : 27", "리준호", 2, Data(), true, false),
+        CellItem("you", 0, "2023년 03월 29일 수요일", "11 : 27", "리준호", 2, Data(), true, false),
+        CellItem("I", 0, "2023년 03월 29일 수요일", "11 : 41", "리준호", 2, Data(), true, false),
+        CellItem("am", 0, "2023년 03월 29일 수요일", "11 : 41", "리준호", 2, Data(), true, false),
+        CellItem("fine", 0, "2023년 03월 29일 수요일", "11 : 41", "리준호", 2, Data(), true, false),
+        CellItem("thank", 0, "2023년 03월 29일 수요일", "11 : 41", "리준호", 2, Data(), true, false),
+        CellItem("you", 0, "2023년 03월 29일 수요일", "11 : 41", "리준호", 2, Data(), true, false),
+        CellItem("and", 0, "2023년 03월 29일 수요일", "11 : 42", "리준호", 2, Data(), true, false),
+        CellItem("you", 0, "2023년 03월 29일 수요일", "11 : 42", "리준호", 2, Data(), true, false),
+        CellItem("listen", 0, "2023년 03월 29일 수요일", "12 : 01", "리준호", 2, Data(), true, false),
+        CellItem("to", 0, "2023년 03월 29일 수요일", "12 : 01", "리준호", 2, Data(), true, false),
+        CellItem("my", 0, "2023년 03월 29일 수요일", "12 : 01", "리준호", 2, Data(), true, false),
+        CellItem("heart", 0, "2023년 03월 29일 수요일", "12 : 01", "리준호", 2, Data(), true, false),
+        CellItem("beat", 0, "2023년 03월 29일 수요일", "12 : 01", "리준호", 2, Data(), true, false),
+        CellItem("wow", 0, "2023년 03월 29일 수요일", "12 : 39", "리준호", 2, Data(), true, false),
+        CellItem("testtext\ntesttext\ntesttext\ntesttext\ntesttext\ntesttext", 1, "2023년 03월 29일 수요일", "13 : 45", "이준호", 3, Data(), true, false)]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -69,7 +75,24 @@ class ViewController: UIViewController {
         UISetting()
         addObservers()
         atherSetting()
-//        UserDefaults.standard.removeObject(forKey: "chat0")
+        UserDefaults.standard.removeObject(forKey: "chat0")
+    }
+    
+    @IBAction
+    func findString(_ sender: Any) {
+        print(view.safeAreaLayoutGuide.layoutFrame.width)
+        var row: [Int] = []
+        guard let text: String = myFindTextField.text else { return }
+        for num in 0..<contents.count{
+            if contents[num].myText.contains(text){
+                row.append(num)
+            }
+        }
+        if row.count > 0{
+            let indexPath = IndexPath(row: row[findNumber], section: 0)
+            myTableView.scrollToRow(at: indexPath, at: .bottom, animated: false)
+        }
+        findNumber = findNumber == (findLength - 1) ? 0 : findNumber + 1
     }
     
     @IBAction
@@ -91,12 +114,32 @@ class ViewController: UIViewController {
     @IBAction
     func addChat(_ sender: Any) {
         guard let content: String = myTextView.text else{ return }
+        let currentDateString = getTime()
+        let date: String = getDate()
+        setState()
+        if contents.last?.myDate != date{
+            print("날짜바뀜")
+            contents.append(CellItem(" ", 1, date, currentDateString, name, state, Data(), true, true))
+            print("날짜변경추가")
+        }
+        contents.append(CellItem(content, 1, date, currentDateString, name, state, Data(), true, false))
+        tableViewUpDate()
+    }
+    
+    func getTime() -> String{
         let formatter = DateFormatter()
         formatter.dateFormat = "HH : mm"
-        let currentDateString = formatter.string(from: Date())
-        setState()
-        contents.append(CellItem(content, 1, currentDateString, name, state, Data(), true))
-        tableViewUpDate()
+        return formatter.string(from: Date())
+    }
+    
+    func getDate() -> String{
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy년 MM월 dd일 "
+        var date: String = formatter.string(from: Date())
+        formatter.dateFormat = "EEEEEE"
+        formatter.locale = Locale(identifier: "ko_KR")
+        date += "\(formatter.string(from: Date()))요일"
+        return date
     }
     
     func scrollDown(){
@@ -168,12 +211,21 @@ class ViewController: UIViewController {
     }
     
     private func atherSetting(){
+        myFindTextField.addTarget(self, action: #selector(textFildDidChange(_:)), for: .editingChanged)
         middleView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTap)))
         DispatchQueue.main.asyncAfter(deadline:  .now() + 0.1, execute: { self.scrollDown() })
         imagePicker.delegate = self
         imagePicker.sourceType = .photoLibrary
         imagePicker.allowsEditing = false
         myTableView.dataSource = self
+    }
+    
+    @objc
+    func textFildDidChange(_ textField: UITextField){
+        if let inputText = textField.text {
+            findNumber = 0
+            findLength = contents.filter{$0.myText.contains(inputText)}.count
+        }
     }
     
     @objc

@@ -19,6 +19,7 @@
 		049CC34A29D44A690041F7E3 /* MyCustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049CC34929D44A690041F7E3 /* MyCustomCell.swift */; };
 		049CC34C29D44AC30041F7E3 /* YourCustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049CC34B29D44AC30041F7E3 /* YourCustomCell.swift */; };
 		049CC35129D44B600041F7E3 /* CellItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049CC35029D44B600041F7E3 /* CellItem.swift */; };
+		049CC35429D56E1B0041F7E3 /* DateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049CC35329D56E1B0041F7E3 /* DateCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,7 @@
 		049CC34929D44A690041F7E3 /* MyCustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCustomCell.swift; sourceTree = "<group>"; };
 		049CC34B29D44AC30041F7E3 /* YourCustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YourCustomCell.swift; sourceTree = "<group>"; };
 		049CC35029D44B600041F7E3 /* CellItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellItem.swift; sourceTree = "<group>"; };
+		049CC35329D56E1B0041F7E3 /* DateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,6 +99,7 @@
 			children = (
 				049CC34929D44A690041F7E3 /* MyCustomCell.swift */,
 				049CC34B29D44AC30041F7E3 /* YourCustomCell.swift */,
+				049CC35329D56E1B0041F7E3 /* DateCell.swift */,
 			);
 			path = CustomCells;
 			sourceTree = "<group>";
@@ -189,6 +192,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				049CC34529D42A1F0041F7E3 /* TableViewDataCource.swift in Sources */,
+				049CC35429D56E1B0041F7E3 /* DateCell.swift in Sources */,
 				049CC35129D44B600041F7E3 /* CellItem.swift in Sources */,
 				049CC34C29D44AC30041F7E3 /* YourCustomCell.swift in Sources */,
 				049CC34329D429940041F7E3 /* TextViewDelegate.swift in Sources */,

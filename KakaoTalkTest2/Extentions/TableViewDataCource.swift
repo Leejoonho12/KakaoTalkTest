@@ -13,8 +13,14 @@ extension ViewController: UITableViewDataSource{
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        if contents[indexPath.row].myName == "리준호"{ //내채팅
+        if contents[indexPath.row].isDate{
+            guard let cell3 = tableView.dequeueReusableCell(withIdentifier: "cell3", for: indexPath) as? CustomDateCell else { return UITableViewCell() }
+            cell3.myCornerView.clipsToBounds = true
+            cell3.myCornerView.layer.cornerRadius = cell3.myCornerView.frame.height / 2
+            cell3.myDateLabel.text = contents[indexPath.row].myDate
+            
+            return cell3
+        }else if contents[indexPath.row].myName == "리준호"{ //내채팅
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? CustomTextCell else { return UITableViewCell() }
             
             //같은시간 채팅은 마지막것만 시간표시
@@ -48,13 +54,14 @@ extension ViewController: UITableViewDataSource{
                 cell.myPicture.isHidden = false
                 if let myimage = UIImage(data: contents[indexPath.row].myImage){
                     cell.myPicture.image = myimage
-                    cell.pictureHeight.constant = myimage.size.height / (myimage.size.width / cell.myPicture.frame.width)
+                    let safeareaWidth = view.safeAreaLayoutGuide.layoutFrame.width
+                    cell.pictureWidth.constant = safeareaWidth / 100 * 54.133333333333333
+                    cell.pictureHeight.constant = myimage.size.height / (myimage.size.width / cell.pictureWidth.constant)
                     cell.myPicture.clipsToBounds = true
                     cell.myPicture.layer.cornerRadius = 10
                 }
             }
             cell.myTimeLabel.text = contents[indexPath.row].myTime
-            cell.myTimeWidth.constant = cell.myTimeLabel.sizeThatFits(CGSize(width: CGFloat.greatestFiniteMagnitude, height: cell.myTimeLabel.frame.size.height)).width
             cell.myTimeLabel.textColor = .gray
             cell.myTextLabel.text = contents[indexPath.row].myText
             cell.myCornerView.backgroundColor = .yellow
@@ -62,8 +69,8 @@ extension ViewController: UITableViewDataSource{
             cell.myTextLabel.textColor = .black
             cell.myCornerView.clipsToBounds = true
             cell.myCornerView.layer.cornerRadius = 10
+            
             return cell
-
         } else if contents[indexPath.row].myName == "이준호"{ //니채팅
             guard let cell2 = tableView.dequeueReusableCell(withIdentifier: "cell2", for: indexPath) as? CustomProfileCell else { return UITableViewCell() }
             
@@ -98,7 +105,9 @@ extension ViewController: UITableViewDataSource{
                 cell2.myPicture.isHidden = false
                 if let myimage = UIImage(data: contents[indexPath.row].myImage){
                     cell2.myPicture.image = myimage
-                    cell2.pictureHeight.constant = myimage.size.height / (myimage.size.width / cell2.myPicture.frame.width)
+                    let safeareaWidth = view.safeAreaLayoutGuide.layoutFrame.width
+                    cell2.pictureWidth.constant = safeareaWidth / 100 * 53.233333333333333 // 아이폰14Pro 에서 이미지뷰width 의 최대값이 SafeArea의 몇%인지 구한 값. 다른 기기에서도 같은 비율로 적용 시키기 위해.
+                    cell2.pictureHeight.constant = myimage.size.height / (myimage.size.width / cell2.pictureWidth.constant)
                     cell2.myPicture.clipsToBounds = true
                     cell2.myPicture.layer.cornerRadius = 10
                 }
@@ -114,7 +123,6 @@ extension ViewController: UITableViewDataSource{
                 cell2.yourImageView.isHidden = false
                 cell2.myEmptyLabel.isHidden = true
             }
-            cell2.yourTimeWidth.constant = cell2.yourTimeLabel.sizeThatFits(CGSize(width: CGFloat.greatestFiniteMagnitude, height: cell2.yourTimeLabel.frame.size.height)).width
             cell2.yourTextLabel.text = contents[indexPath.row].myText
             cell2.yourTextLabel.textColor = .white
             cell2.yourImageView.clipsToBounds = true
