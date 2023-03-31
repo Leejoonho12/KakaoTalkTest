@@ -208,6 +208,9 @@
                                                                                             </constraints>
                                                                                         </view>
                                                                                     </subviews>
+                                                                                    <constraints>
+                                                                                        <constraint firstItem="R6i-Hk-kOb" firstAttribute="top" secondItem="e7u-VX-eHo" secondAttribute="top" constant="20.333333333333329" id="Hrp-HY-D6e"/>
+                                                                                    </constraints>
                                                                                 </stackView>
                                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rba-59-5Hl">
                                                                                     <rect key="frame" x="272.33333333333331" y="0.0" width="5" height="50"/>
@@ -251,7 +254,9 @@
                                                         </stackView>
                                                     </subviews>
                                                     <constraints>
+                                                        <constraint firstAttribute="bottom" secondItem="e7u-VX-eHo" secondAttribute="bottom" constant="2.9999949137369697" id="Lh9-hH-82n"/>
                                                         <constraint firstAttribute="trailing" secondItem="cdH-ZG-kNR" secondAttribute="trailing" constant="60" id="Q4a-tv-Eod"/>
+                                                        <constraint firstItem="e7u-VX-eHo" firstAttribute="top" secondItem="nW5-vS-dyD" secondAttribute="top" constant="3" id="YG9-2E-ldt"/>
                                                         <constraint firstAttribute="bottom" secondItem="cdH-ZG-kNR" secondAttribute="bottom" constant="3" id="dBP-QR-lSF"/>
                                                         <constraint firstItem="cdH-ZG-kNR" firstAttribute="top" secondItem="nW5-vS-dyD" secondAttribute="top" constant="3" id="gwy-eP-aNI"/>
                                                         <constraint firstItem="cdH-ZG-kNR" firstAttribute="leading" secondItem="nW5-vS-dyD" secondAttribute="leading" constant="15" id="lg4-tA-a1V"/>

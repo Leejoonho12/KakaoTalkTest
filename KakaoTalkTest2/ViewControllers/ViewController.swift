@@ -40,6 +40,8 @@ class ViewController: UIViewController {
     
     var findLength: Int = 0
     
+    var findLast: Bool = false
+    
     var contents: [CellItem] = [
         CellItem(" ", 0, "2023년 03월 29일 수요일", "11 : 09", "리준호", .myFirst, Data(), true, true),
         CellItem("hello", 0, "2023년 03월 29일 수요일", "11 : 09", "리준호", .myFirst, Data(), true, false)]
@@ -67,8 +69,24 @@ class ViewController: UIViewController {
         if row.count > 0{
             let indexPath = IndexPath(row: row[findNumber], section: 0)
             myTableView.scrollToRow(at: indexPath, at: .bottom, animated: false)
+            guard let cell = myTableView.cellForRow(at: indexPath) ,
+                  let label = cell.viewWithTag(1) as? UILabel else{ return }
+            if findLast{
+                let animation = CABasicAnimation(keyPath: "position")
+                animation.duration = 0.07
+                animation.repeatCount = 4
+                animation.autoreverses = true
+                animation.fromValue = NSValue(cgPoint: CGPoint(x: label.center.x - 5, y: label.center.y))
+                animation.toValue = NSValue(cgPoint: CGPoint(x: label.center.x + 5, y: label.center.y))
+                label.layer.add(animation, forKey: "position")
+            } else{
+                if findNumber == (findLength - 1){
+                    findLast = true
+                } else {
+                    findNumber += 1
+                }
+            }
         }
-        findNumber = findNumber == (findLength - 1) ? 0 : findNumber + 1
     }
     
     @IBAction
@@ -86,7 +104,6 @@ class ViewController: UIViewController {
             myChangeButton.backgroundColor = .gray
         }
     }
-    // 여기는 열거형을 쓰거나 불타입을 쓰는것도 좋을 것 같다.
     
     @IBAction
     func addChat(_ sender: Any) {
@@ -209,6 +226,7 @@ class ViewController: UIViewController {
         if let inputText = textField.text {
             findNumber = 0
             findLength = contents.filter{$0.myText.contains(inputText)}.count
+            findLast = false
         }
     }
     

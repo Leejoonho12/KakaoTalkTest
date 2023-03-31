@@ -53,6 +53,7 @@ extension ViewController: UITableViewDataSource{
                     let safeareaWidth = view.safeAreaLayoutGuide.layoutFrame.width
                     cell.pictureWidth.constant = safeareaWidth / 100 * 54.133333333333333
                     cell.pictureHeight.constant = myimage.size.height / (myimage.size.width / cell.pictureWidth.constant)
+                    print(cell.pictureHeight.constant)
                     cell.myPicture.clipsToBounds = true
                     cell.myPicture.layer.cornerRadius = 10
                 }
@@ -104,6 +105,7 @@ extension ViewController: UITableViewDataSource{
                     let safeareaWidth = view.safeAreaLayoutGuide.layoutFrame.width
                     cell2.pictureWidth.constant = safeareaWidth / 100 * 53.233333333333333 // 아이폰14Pro 에서 이미지뷰width 의 최대값이 SafeArea의 몇%인지 구한 값. 다른 기기에서도 같은 비율로 적용 시키기 위해.
                     cell2.pictureHeight.constant = myimage.size.height / (myimage.size.width / cell2.pictureWidth.constant)
+                    print(cell2.pictureHeight.constant)
                     cell2.myPicture.clipsToBounds = true
                     cell2.myPicture.layer.cornerRadius = 10
                 }
