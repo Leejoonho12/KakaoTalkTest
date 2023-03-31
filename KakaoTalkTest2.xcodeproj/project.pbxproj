@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0472000829D664EC00D2CC51 /* Enum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0472000729D664EC00D2CC51 /* Enum.swift */; };
 		049CC30D29CBE5BB0041F7E3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049CC30C29CBE5BB0041F7E3 /* AppDelegate.swift */; };
 		049CC30F29CBE5BB0041F7E3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049CC30E29CBE5BB0041F7E3 /* SceneDelegate.swift */; };
 		049CC31129CBE5BB0041F7E3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049CC31029CBE5BB0041F7E3 /* ViewController.swift */; };
@@ -23,6 +24,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0472000729D664EC00D2CC51 /* Enum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enum.swift; sourceTree = "<group>"; };
 		049CC30929CBE5BB0041F7E3 /* KakaoTalkTest2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KakaoTalkTest2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		049CC30C29CBE5BB0041F7E3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		049CC30E29CBE5BB0041F7E3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -51,6 +53,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0472000629D664D300D2CC51 /* Enums */ = {
+			isa = PBXGroup;
+			children = (
+				0472000729D664EC00D2CC51 /* Enum.swift */,
+			);
+			path = Enums;
+			sourceTree = "<group>";
+		};
 		049CC30029CBE5BB0041F7E3 = {
 			isa = PBXGroup;
 			children = (
@@ -70,6 +80,7 @@
 		049CC30B29CBE5BB0041F7E3 /* KakaoTalkTest2 */ = {
 			isa = PBXGroup;
 			children = (
+				0472000629D664D300D2CC51 /* Enums */,
 				049CC35229D44B870041F7E3 /* ViewControllers */,
 				049CC34F29D44B3D0041F7E3 /* Classes */,
 				049CC34D29D44AF30041F7E3 /* CustomCells */,
@@ -195,6 +206,7 @@
 				049CC35429D56E1B0041F7E3 /* DateCell.swift in Sources */,
 				049CC35129D44B600041F7E3 /* CellItem.swift in Sources */,
 				049CC34C29D44AC30041F7E3 /* YourCustomCell.swift in Sources */,
+				0472000829D664EC00D2CC51 /* Enum.swift in Sources */,
 				049CC34329D429940041F7E3 /* TextViewDelegate.swift in Sources */,
 				049CC31129CBE5BB0041F7E3 /* ViewController.swift in Sources */,
 				049CC34A29D44A690041F7E3 /* MyCustomCell.swift in Sources */,

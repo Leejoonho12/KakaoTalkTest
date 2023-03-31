@@ -20,7 +20,7 @@ extension ViewController: UITableViewDataSource{
             
             //같은시간 채팅은 마지막것만 시간표시
             if indexPath.row != contents.count - 1{
-                if contents[indexPath.row + 1].myState == 2{
+                if contents[indexPath.row + 1].myState == .myNext{
                     if contents[indexPath.row].myTime == contents[indexPath.row + 1].myTime{
                         cell.myTimeLabel.isHidden = true
                     }else{
@@ -72,7 +72,7 @@ extension ViewController: UITableViewDataSource{
             
             //같은시간 채팅은 마지막것만 시간표시
             if indexPath.row != contents.count - 1{
-                if contents[indexPath.row + 1].myState == 4{
+                if contents[indexPath.row + 1].myState == .yourNext{
                     if contents[indexPath.row].myTime == contents[indexPath.row + 1].myTime{
                         cell2.yourTimeLabel.isHidden = true
                     }else{
@@ -110,7 +110,7 @@ extension ViewController: UITableViewDataSource{
             }
             
             //턴이 넘어오고 첫채팅이 아니면 이름과 프로필사진 히든
-            if contents[indexPath.row].myState == 4{
+            if contents[indexPath.row].myState == .yourNext{
                 cell2.myNameLabel.isHidden = true
                 cell2.myEmptyLabel.isHidden = false
                 cell2.yourImageView.isHidden = true

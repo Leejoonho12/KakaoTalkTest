@@ -1,7 +1,7 @@
 import Foundation
 import UIKit
 
-class CellItem: Encodable, Decodable{
+class CellItem: Codable{
     
     var myText: String
     
@@ -13,7 +13,7 @@ class CellItem: Encodable, Decodable{
     
     var myName: String
     
-    var myState: Int
+    var myState: sequenceState
     
     var myImage: Data
     
@@ -21,7 +21,7 @@ class CellItem: Encodable, Decodable{
     
     var isDate: Bool
     
-    init(_ text: String, _ num: Int, _ date: String, _ time: String, _ name: String, _ state: Int, _ image: Data, _ istext: Bool, _ isdate: Bool){
+    init(_ text: String, _ num: Int, _ date: String, _ time: String, _ name: String, _ state: sequenceState, _ image: Data, _ istext: Bool, _ isdate: Bool){
         self.myText = text
         self.mycheckNumber = num
         self.myDate = date

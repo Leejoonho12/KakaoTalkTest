@@ -470,6 +470,7 @@
                             <constraint firstItem="owb-jz-sN4" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="xaW-Y0-K8c"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="rIL-oZ-njK"/>
                     <connections>
                         <outlet property="bottomView" destination="owb-jz-sN4" id="jvx-sC-d7E"/>
                         <outlet property="middleView" destination="dL4-bC-ezr" id="VP3-3H-4t2"/>
@@ -489,7 +490,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="135.1145038167939" y="3.5211267605633805"/>
+            <point key="canvasLocation" x="-2654" y="-10"/>
         </scene>
     </scenes>
     <resources>

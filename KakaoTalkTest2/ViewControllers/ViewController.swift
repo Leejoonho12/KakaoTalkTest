@@ -32,7 +32,7 @@ class ViewController: UIViewController {
     
     var name: String = "리준호"
     
-    var state: Int = 0
+    var state: sequenceState = .myFirst
     
     let imagePicker = UIImagePickerController()
     
@@ -41,8 +41,8 @@ class ViewController: UIViewController {
     var findLength: Int = 0
     
     var contents: [CellItem] = [
-        CellItem(" ", 0, "2023년 03월 29일 수요일", "11 : 09", "리준호", 1, Data(), true, true),
-        CellItem("hello", 0, "2023년 03월 29일 수요일", "11 : 09", "리준호", 1, Data(), true, false)]
+        CellItem(" ", 0, "2023년 03월 29일 수요일", "11 : 09", "리준호", .myFirst, Data(), true, true),
+        CellItem("hello", 0, "2023년 03월 29일 수요일", "11 : 09", "리준호", .myFirst, Data(), true, false)]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -86,6 +86,7 @@ class ViewController: UIViewController {
             myChangeButton.backgroundColor = .gray
         }
     }
+    // 여기는 열거형을 쓰거나 불타입을 쓰는것도 좋을 것 같다.
     
     @IBAction
     func addChat(_ sender: Any) {
@@ -94,9 +95,7 @@ class ViewController: UIViewController {
         let date: String = getDate()
         setState()
         if contents.last?.myDate != date{
-            print("날짜바뀜")
-            contents.append(CellItem(" ", 1, date, currentDateString, name, state, Data(), true, true))
-            print("날짜변경추가")
+            contents.append(CellItem("", 1, date, currentDateString, name, state, Data(), true, true))
         }
         contents.append(CellItem(content, 1, date, currentDateString, name, state, Data(), true, false))
         tableViewUpDate()
@@ -128,9 +127,7 @@ class ViewController: UIViewController {
     
     func scrollDown(){
         DispatchQueue.main.async {
-            let lastSection = self.myTableView.numberOfSections - 1
-            let lastRowInLastSection = self.myTableView.numberOfRows(inSection: lastSection) - 1
-            let indexPath = IndexPath(row: lastRowInLastSection, section: lastSection)
+            let indexPath = IndexPath(row: self.contents.count - 1, section: 0)
             if self.contents.count > 0{
                 self.myTableView.scrollToRow(at: indexPath, at: .bottom, animated: false)
             }
@@ -144,7 +141,6 @@ class ViewController: UIViewController {
         }
         myTableView.reloadData()
         myTextView.text = ""
-        textViewDidChange(myTextView)
         myUpdateButton.isHidden = true
         mySharpButton.isHidden = false
         scrollDown()
@@ -152,26 +148,28 @@ class ViewController: UIViewController {
     
     func setState(){
         if name == "리준호"{
-            if contents.last?.myState == 3 || contents.last?.myState == 4{
-                state = 1
+            switch contents.last?.myState{
+            case .yourFirts, .yourNext:
+                state = .myFirst
                 for seq in 0...(contents.count - 1){
                     contents[seq].mycheckNumber -= 1
                 }
-            } else if contents.last?.myState == 1{
-                state = 2
-            } else {
-                state = 2
+            case .myFirst, .myNext:
+                state = .myNext
+            case .none:
+                state = .myNext
             }
         } else if name == "이준호"{
-            if contents.last?.myState == 1 || contents.last?.myState == 2{
-                state = 3
+            switch contents.last?.myState{
+            case .myFirst, .myNext:
+                state = .yourFirts
                 for seq in 0...(contents.count - 1){
                     contents[seq].mycheckNumber -= 1
                 }
-            } else if contents.last?.myState == 3{
-                state = 4
-            } else {
-                state = 4
+            case .yourFirts, .yourNext:
+                state = .yourNext
+            case .none:
+                state = .yourNext
             }
         }
     }
@@ -199,7 +197,7 @@ class ViewController: UIViewController {
     private func atherSetting(){
         myFindTextField.addTarget(self, action: #selector(textFildDidChange(_:)), for: .editingChanged)
         middleView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTap)))
-        DispatchQueue.main.asyncAfter(deadline:  .now() + 0.1, execute: { self.scrollDown() })
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: { self.scrollDown() })
         imagePicker.delegate = self
         imagePicker.sourceType = .photoLibrary
         imagePicker.allowsEditing = false
