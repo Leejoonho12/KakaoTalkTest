@@ -44,7 +44,9 @@ class ViewController: UIViewController {
     
     var contents: [CellItem] = [
         CellItem(" ", 0, "2023년 03월 29일 수요일", "11 : 09", "리준호", .myFirst, Data(), true, true),
-        CellItem("hello", 0, "2023년 03월 29일 수요일", "11 : 09", "리준호", .myFirst, Data(), true, false)]
+        CellItem("hello", 0, "2023년 03월 29일 수요일", "11 : 09", "리준호", .myFirst, Data(), true, false),
+        CellItem(" ", 0, "2023년 03월 30일 수요일", "11 : 09", "리준호", .myFirst, Data(), true, true),
+        CellItem("hello", 0, "2023년 03월 30일 수요일", "11 : 09", "리준호", .myFirst, Data(), true, false)]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -101,7 +103,7 @@ class ViewController: UIViewController {
             myChangeButton.backgroundColor = .yellow
         }else if name == "이준호"{
             name = "리준호"
-            myChangeButton.backgroundColor = .gray
+            myChangeButton.backgroundColor = myChatView.backgroundColor
         }
     }
     
@@ -196,7 +198,7 @@ class ViewController: UIViewController {
         myChatView.clipsToBounds = true
         myChatView.layer.cornerRadius = myChatView.frame.size.height / 2
         myUpdateButton.isHidden = true
-        myChangeButton.backgroundColor = .gray
+        myChangeButton.backgroundColor = myChatView.backgroundColor
     }
 
     private func addObservers() {
